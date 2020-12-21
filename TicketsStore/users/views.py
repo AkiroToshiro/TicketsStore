@@ -1,6 +1,6 @@
 from flask import Blueprint
 from TicketsStore import session
-from TicketsStore.schemas import UserSchema, AuthSchema
+from TicketsStore.schemas import UserSchema, AuthSchema, User_Update_Schema
 from flask_apispec import use_kwargs, marshal_with
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from TicketsStore.models import User
@@ -34,7 +34,7 @@ def user_login(**kwargs):
 
 @users.route('/user/update', methods=['PUT'])
 @jwt_required
-@use_kwargs(UserSchema)
+@use_kwargs(User_Update_Schema)
 def update_user(**kwargs):
     try:
         item = User.query.filter(User.id == get_jwt_identity()).first()

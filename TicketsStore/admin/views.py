@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from TicketsStore.schemas import UserSchema, TicketSchema, OrderSchema
+from TicketsStore.schemas import UserSchema, TicketSchema, OrderSchema, User_Update_Schema, TicketSchemaUpdate
 from flask_apispec import use_kwargs, marshal_with
 from TicketsStore.models import Order, Ticket, User
 from TicketsStore import session
@@ -21,8 +21,8 @@ def get_user_list():
 
 @admins.route('/user/<int:user_id>', methods=['PUT'])
 @jwt_required
-@use_kwargs(UserSchema)
-@marshal_with(UserSchema)
+@use_kwargs(User_Update_Schema)
+@marshal_with(User_Update_Schema)
 def update_user(user_id, **kwargs):
     if User.check_user_admin(get_jwt_identity()):
         item = User.query.filter(User.id == user_id).first()
@@ -36,7 +36,7 @@ def update_user(user_id, **kwargs):
 def delete_user(user_id):
     if User.check_user_admin(get_jwt_identity()):
         User.delete_user(user_id)
-        return {'message': 'Success'}, 202
+        return {'message': 'Success'}, 200
     return {'message': 'Haven`t perm'}, 402
 
 
@@ -55,8 +55,8 @@ def add_ticket(**kwargs):
 
 @admins.route('/ticket/<int:ticket_id>', methods=['PUT'])
 @jwt_required
-@use_kwargs(TicketSchema)
-@marshal_with(TicketSchema)
+@use_kwargs(TicketSchemaUpdate)
+@marshal_with(TicketSchemaUpdate)
 def update_ticket(ticket_id, **kwargs):
     if User.check_user_admin(get_jwt_identity()):
         item = Ticket.query.filter(Ticket.id == ticket_id).first()
@@ -75,17 +75,17 @@ def delete_ticket(ticket_id):
         item = Ticket.query.filter(Ticket.id == ticket_id).first()
         item.delete()
         session.commit()
-        return '', 204
-    return 'Have no access', 402
+        return {'message': 'Success'}, 200
+    return 'Have no perm', 402
 
 
-@admins.route('/order', methods=['GET'])
+@admins.route('/order/list', methods=['GET'])
 @jwt_required
 @marshal_with(OrderSchema(many=True))
 def get_order_list():
     if User.check_user_admin(get_jwt_identity()):
-        tickets = Order.get_order_list()
-        return tickets
+        orders = Order.get_order_list()
+        return orders
     return 'Have no access', 402
 
 

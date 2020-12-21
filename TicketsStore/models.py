@@ -43,7 +43,7 @@ class Ticket(Base):
         try:
             ticket = cls.query.filter(cls.id == ticket_id).first()
             if not ticket:
-                raise Exception('No tutorials with this id')
+                raise Exception('No ticket with this id')
         except Exception:
             session.rollback()
             raise
@@ -59,18 +59,6 @@ class Ticket(Base):
             session.rollback()
             raise
         session.commit()
-        return tickets
-
-    @classmethod
-    def ticket_by_status(cls, ticket_status):
-        try:
-            tickets = cls.query.filter(cls.status == ticket_status).all()
-            if not tickets:
-                raise Exception('No tickets with this status')
-            session.commit()
-        except Exception:
-            session.rollback()
-            raise
         return tickets
 
     def delete(self):
@@ -90,22 +78,19 @@ class Order(Base):
     order_date = db.Column(db.DateTime, default=datetime.now())
     status = db.Column(db.String(35), nullable=False)
 
-
-
     @classmethod
     def get_order_list(cls):
         try:
             orders = cls.query.all()
+            session.commit()
         except Exception:
+            session.rollback()
             raise
         return orders
 
     @classmethod
     def get_order_user_list(cls, user_id):
-        try:
-            orders = cls.query.filter(cls.user_id == user_id).all()
-        except Exception:
-            raise
+        orders = cls.query.filter(cls.user_id == user_id).all()
         return orders
 
     @classmethod
@@ -123,10 +108,19 @@ class Order(Base):
         try:
             order = cls.query.filter(cls.ticket_id == ticket_id).first()
             if not order:
-                raise
+                raise Exception
         except Exception:
             raise
         return order
+
+    @classmethod
+    def check_order_by_ticket_id(cls, ticket_id):
+        check = cls.query.filter(cls.ticket_id == ticket_id).first()
+        if check:
+            return True
+        else:
+            return False
+
 
     @classmethod
     def orders_by_user_id(cls, user_id):

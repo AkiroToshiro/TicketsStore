@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from TicketsStore.schemas import OrderSchema, ReserveOrderSchema
+from TicketsStore.schemas import OrderSchema, ReserveOrderSchema, message
 from flask_apispec import use_kwargs, marshal_with
 from TicketsStore.models import Order, Ticket
 from TicketsStore import session
@@ -12,38 +12,34 @@ orders = Blueprint('orders', __name__)
 @orders.route('/order/reserve/<int:ticket_id>', methods=['POST'])
 @jwt_required
 def reserve(ticket_id):
-    check_status = Order.order_by_ticket_id(ticket_id)
-    if not check_status:
-        pass
+    if Order.check_order_by_ticket_id(ticket_id):
+        return {'message': 'No Available'}, 204
     else:
-        if check_status.status != 'Available':
-            return {'message': 'No Available'}, 204
-    new_order = Order()
-    new_order.ticket_id = ticket_id
-    new_order.user_id = get_jwt_identity()
-    new_order.status = 'Reserved'
-    new_order.save()
-    return {'message': 'Saccess'}, 200
+        new_order = Order()
+        new_order.ticket_id = ticket_id
+        new_order.user_id = get_jwt_identity()
+        new_order.status = 'Reserved'
+        new_order.save()
+        return {'message': 'Saccess'}, 200
 
 
 @orders.route('/order/purchase/<int:ticket_id>', methods=['POST'])
 @jwt_required
 def purchase(ticket_id):
-    check_status = Order.order_by_ticket_id(ticket_id)
-    if not check_status:
+    if Order.check_order_by_ticket_id(ticket_id):
+        check_status = Order.order_by_ticket_id(ticket_id)
+        if check_status.status != 'Purchased':
+            if check_status.user_id == get_jwt_identity():
+                check_status.status = 'Purchased'
+                check_status.save()
+                return {'message': 'Saccess'}, 200
+    else:
         new_order = Order()
         new_order.ticket_id = ticket_id
         new_order.user_id = get_jwt_identity()
         new_order.status = 'Purchased'
         new_order.save()
-        return 200
-    else:
-        if check_status.status != 'Purchased':
-            if check_status.user_id == get_jwt_identity():
-                check_status.status = 'Purchased'
-                check_status.save()
-                return 200
-
+        return {'message': 'Saccess'}, 200
     return {'message': 'No Available'}, 204
 
 
@@ -69,8 +65,17 @@ def delete_order(order_id):
     if item.user_id == get_jwt_identity():
         item.delete()
         session.commit()
-        return '', 200
-    return '', 400
+        return {'message': 'Saccess'}, 200
+    return {'message': 'No Available'}, 204
+
+
+@orders.route('/order', methods=['GET'])
+@jwt_required
+@marshal_with(OrderSchema(many=True))
+def order_user_list():
+    user_id = get_jwt_identity()
+    orders = Order.get_order_user_list(user_id)
+    return orders
 
 
 docs.register(reserve, blueprint='orders')

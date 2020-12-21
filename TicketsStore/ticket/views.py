@@ -18,7 +18,7 @@ def get_ticket_list():
 
 @tickets.route('/ticket/<int:ticket_id>', methods=['GET'])
 @jwt_required
-@marshal_with(TicketSchema(many=True))
+@marshal_with(TicketSchema)
 def ticket_by_id(ticket_id):
     item = Ticket.ticket_by_id(ticket_id=ticket_id)
     return item
@@ -32,15 +32,7 @@ def ticket_by_tag(tag):
     return item
 
 
-@tickets.route('/ticket/findByStatus/<string:status>', methods=['GET'])
-@jwt_required
-@marshal_with(TicketSchema(many=True))
-def ticket_by_status(status):
-    item = Ticket.ticket_by_status(ticket_status=status)
-    return item
-
-
 docs.register(get_ticket_list, blueprint='tickets')
 docs.register(ticket_by_id, blueprint='tickets')
 docs.register(ticket_by_tag, blueprint='tickets')
-docs.register(ticket_by_status, blueprint='tickets')
+

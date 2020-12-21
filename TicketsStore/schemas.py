@@ -16,6 +16,19 @@ class TicketSchema(Schema):
     message = fields.String(dump_only=True)
 
 
+class TicketSchemaUpdate(Schema):
+    category = fields.String(required=False, validate=[
+        validate.Length(max=35)
+    ])
+    name = fields.String(required=False, validate=[
+        validate.Length(max=35)
+    ])
+    tags = fields.String(required=False, validate=[
+        validate.Length(max=35)
+    ])
+    message = fields.String(dump_only=True)
+
+
 class UserSchema(Schema):
     id = fields.Integer(dump_only=True)
     firstName = fields.String(required=False, validate=[
@@ -28,6 +41,25 @@ class UserSchema(Schema):
         validate.Length(max=35)
     ])
     password = fields.String(required=True, validate=[
+        validate.Length(max=100)
+    ], load_only=True)
+    phone = fields.String(required=False, validate=[
+        validate.Length(max=35)
+    ])
+    message = fields.String(dump_only=True)
+
+
+class User_Update_Schema(Schema):
+    firstName = fields.String(required=False, validate=[
+        validate.Length(max=35)
+    ])
+    lastName = fields.String(required=False, validate=[
+        validate.Length(max=35)
+    ])
+    email = fields.String(required=False, validate=[
+        validate.Length(max=35)
+    ])
+    password = fields.String(required=False, validate=[
         validate.Length(max=100)
     ], load_only=True)
     phone = fields.String(required=False, validate=[
@@ -54,3 +86,7 @@ class ReserveOrderSchema(Schema):
     ticket_id = fields.Integer(dump_only=False)
     message = fields.String(dump_only=True)
 # log = client.post('user/register', json={'username': 'testusers', 'lastName': 'Tests', 'email': 'email@email.ru', 'password': '4132', 'phone': '+380988071'})
+
+
+class message(Schema):
+    message = fields.String(dump_only=True)
