@@ -1,74 +1,15 @@
-########################
-User command:
-#register
 log = client.post('/user/register', json ={'firstName': 'Max', 'lastName': 'Prima', 'email': 'mail@mail.ru', 'password': '4132', 'phone': '3809123'})
-
-#login
 log = client.post('/user/login', json ={'email': 'mail@mail.ru', 'password': '4132'})
 
-#update
-log = client.put('/user/update', json={'firstName': 'Test'} ,headers = auths)
-
-#delete
-log = client.delete('/user',headers = auths)
+auths = {'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MDcxOTg0NTYsIm5iZiI6MTYwNzE5ODQ1NiwianRpIjoiNzA4YmE2YjItY2Q3Yi00OTU2LTljNmUtNzkxNThhYmY5ODY0IiwiZXhwIjoxNjA5MjcyMDU2LCJpZGVudGl0eSI6MSwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.UQOuCDv4fJYpTskkw_DkpeyR6c9Rq8S59yH0ySlsOK0'}
 
 
+log = client.get('/user/list',headers = {'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MDcxNzYxNTksIm5iZiI6MTYwNzE3NjE1OSwianRpIjoiMDM3ZGFmZTUtNTFmZS00MzIyLWIxNTQtMzU4ZDA4ZDUyOWEzIiwiZXhwIjoxNjA5MjQ5NzU5LCJpZGVudGl0eSI6MSwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.gD8LJKmLadfh0qRc1bFBvdiwTetpZEV4EA1g5KPBJBs'})
+log = client.put('/user/1', json ={'firstName': 'Maaaaax', 'lastName': 'Prima', 'email': 'mail@mail.ru', 'password': '4132', 'phone': '3809123'}, headers=auths)
+log = client.delete('/user/3',headers = auths)
+log = client.get('/ticket',headers = auths)
+log = client.post('/ticket', json = {'name': 'Missis Popy', 'tags': 'film'}, headers = auths)
+log = client.get('/ticket/findByStatus/Available',headers = auths)
+log = client.get('/ticket/findByTags/film', headers = auths)
 
-########################
-Admin command:
-#get all user list
-log = client.get('/user/list', headers = admin_auths)
-
-#update user by id
-log = client.put('user/2',  json={'firstName': 'Test3'} ,headers = admin_auths)
-
-#delete user by id
-log = client.delete('user/<int:id>', headers = admin_auths)
-
-#add ticket
-log = client.post('/ticket', json={'category': 'Film', 'name': 'Harry Potter 23', 'tags': 'Horror'}, headers = admin_auths)
-
-#update ticket
-log = client.put('/ticket/1', json={'name': 'Harry Potter 58'}, headers = admin_auths)
-
-#delete ticket
-log = client.delete('ticket/3', headers = admin_auths)
-
-#get order list
-log = client.get('/order/list', headers = admin_auths)
-
-#get order by id
-log = client.get('/order/1', headers = admin_auths)
-
-######################
-Ticket command:
-#get all ticket
-log = client.get('/ticket', headers = auths)
-
-#get ticket by id
-log = client.get('/ticket/1', headers = auths)
-
-#get ticket by tag
-log = client.get('/ticket/findByTags/Horror', headers = auths)
-
-
-############################
-Order command:
-#Reserve
-log = client.post('/order/reserve/1', headers = auths)
-
-#Purchase
-log = client.post('/order/purchase/1', headers = auths)
-
-#User order list
-log = client.get('/order', headers = auths)
-
-#Delete
-log = client.delete('/order/3', headers = auths)
-
-#############################
-init command:
-from TicketsStore import client
-from TicketsStore import session
-auths = {'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MDgxMjQxMzQsIm5iZiI6MTYwODEyNDEzNCwianRpIjoiM2M5MmQ0MTktNjllMy00ODM2LWFiYmEtYjExYmQ5YzFmY2JiIiwiZXhwIjoxNjEwMTk3NzM0LCJpZGVudGl0eSI6MiwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.DDn2IbU0LGKZKGw7-XKe4V_sza8OrDTRqPngE8A5W8I'}
-admin_auths = {'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MDgxMjg5NDgsIm5iZiI6MTYwODEyODk0OCwianRpIjoiODE4OTc5ZTUtYWEzZi00NzIyLWJiMmItMmY5MDg5Yjg0OTU2IiwiZXhwIjoxNjEwMjAyNTQ4LCJpZGVudGl0eSI6NCwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.umwi0ZZd3Njf3Csq_3ceaUmIFZVaGvEfJFn-addgHjQ'}
+log = client.post('/order/reserve',json={'ticket_id': 1 },  headers = auths)
