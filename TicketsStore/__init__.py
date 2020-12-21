@@ -1,6 +1,7 @@
 from flask import Flask
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy import create_engine
+import sqlalchemy as db
 from sqlalchemy.ext.declarative import declarative_base
 from flask_jwt_extended import JWTManager, jwt_required
 from .config import Config
@@ -39,6 +40,20 @@ app.config.update({
 @app.teardown_appcontext
 def shutdown_session(exception=None):
     session.remove()
+
+
+from .ticket.views import tickets
+
+from .users.views import users
+
+from .order.views import orders
+
+from .admin.views import admins
+
+app.register_blueprint(tickets)
+app.register_blueprint(users)
+app.register_blueprint(orders)
+app.register_blueprint(admins)
 
 docs.init_app(app)
 jwt.init_app(app)
