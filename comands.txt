@@ -16,6 +16,9 @@ log = client.delete('/user',headers = auths)
 
 ########################
 Admin command:
+#get user by id
+log = client.get('/user/<int:id>', headers = admin_auths)
+
 #get all user list
 log = client.get('/user/list', headers = admin_auths)
 
@@ -43,13 +46,13 @@ log = client.get('/order/1', headers = admin_auths)
 ######################
 Ticket command:
 #get all ticket
-log = client.get('/ticket', headers = auths)
+log = client.get('/ticket')
 
 #get ticket by id
-log = client.get('/ticket/1', headers = auths)
+log = client.get('/ticket/1')
 
 #get ticket by tag
-log = client.get('/ticket/findByTags/Horror', headers = auths)
+log = client.get('/ticket/findByTags/Horror')
 
 
 ############################
@@ -70,5 +73,8 @@ log = client.delete('/order/3', headers = auths)
 init command:
 from TicketsStore import client
 from TicketsStore import session
-auths = {'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MDgxMjQxMzQsIm5iZiI6MTYwODEyNDEzNCwianRpIjoiM2M5MmQ0MTktNjllMy00ODM2LWFiYmEtYjExYmQ5YzFmY2JiIiwiZXhwIjoxNjEwMTk3NzM0LCJpZGVudGl0eSI6MiwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.DDn2IbU0LGKZKGw7-XKe4V_sza8OrDTRqPngE8A5W8I'}
+auths = {'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MDg1MzMyMTUsIm5iZiI6MTYwODUzMzIxNSwianRpIjoiNThmYTY1ZDgtMzllMS00M2Q5LThlNTQtZTk4NjVlYmI5NTRmIiwiZXhwIjoxNjEwNjA2ODE1LCJpZGVudGl0eSI6NiwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.kBw_2-LOp9FveRlzVBguES4O2LW8LsMSklRigmETZV0'}
 admin_auths = {'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MDgxMjg5NDgsIm5iZiI6MTYwODEyODk0OCwianRpIjoiODE4OTc5ZTUtYWEzZi00NzIyLWJiMmItMmY5MDg5Yjg0OTU2IiwiZXhwIjoxNjEwMjAyNTQ4LCJpZGVudGl0eSI6NCwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.umwi0ZZd3Njf3Csq_3ceaUmIFZVaGvEfJFn-addgHjQ'}
+
+
+pytest test.py --cov=TicketsStore.admin --cov=TicketsStore.order --cov=TicketsStore.ticket --cov=TicketsStore.users
