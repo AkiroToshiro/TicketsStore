@@ -8,7 +8,6 @@ from .config import Config
 from apispec.ext.marshmallow import MarshmallowPlugin
 from apispec import APISpec
 from flask_apispec.extension import FlaskApiSpec
-from TicketsStore.schemas import TicketSchema, UserSchema, AuthSchema
 
 app = Flask(__name__)
 app.config.from_object(Config)

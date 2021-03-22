@@ -1,10 +1,10 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from TicketsStore.schemas import UserSchema, TicketSchema, OrderSchema, User_Update_Schema, TicketSchemaUpdate
+from backend.TicketsStore import UserSchema, TicketSchema, OrderSchema, User_Update_Schema, TicketSchemaUpdate
 from flask_apispec import use_kwargs, marshal_with
-from TicketsStore.models import Order, Ticket, User
-from TicketsStore import session
-from TicketsStore import docs
+from backend.TicketsStore import Order, Ticket, User
+from backend.TicketsStore import session
+from backend.TicketsStore import docs
 
 admins = Blueprint('admins', __name__)
 

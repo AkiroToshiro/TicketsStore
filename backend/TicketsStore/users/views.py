@@ -1,10 +1,9 @@
 from flask import Blueprint
-from TicketsStore import session
-from TicketsStore.schemas import UserSchema, AuthSchema, User_Update_Schema
+from backend.TicketsStore import UserSchema, AuthSchema, User_Update_Schema
 from flask_apispec import use_kwargs, marshal_with
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from TicketsStore.models import User
-from TicketsStore import docs
+from backend.TicketsStore import User
+from backend.TicketsStore import docs
 
 users = Blueprint('users', __name__)
 

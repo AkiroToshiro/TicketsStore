@@ -17,11 +17,10 @@ import os
 import sys
 
 current_path = os.path.dirname(os.path.abspath(__file__))
-ROOT_PATH = os.path.join(current_path, '..')
+ROOT_PATH = os.path.join(current_path, '../..')
 sys.path.append(ROOT_PATH)
 
-from TicketsStore import engine, Base
-from TicketsStore.models import *
+from backend.TicketsStore import *
 
 target_metadata = Base.metadata
 

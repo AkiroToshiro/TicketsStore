@@ -4,11 +4,11 @@ from sqlalchemy.ext.declarative import declarative_base
 import pytest
 import sys
 
-sys.path.append('..')
+sys.path.append('../..')
 
-from TicketsStore import app
-from TicketsStore import client
-from TicketsStore.models import *
+from backend.TicketsStore import app
+from backend.TicketsStore import client
+from backend.TicketsStore import *
 
 
 @pytest.fixture

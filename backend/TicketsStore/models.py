@@ -1,4 +1,4 @@
-from TicketsStore import db, session, Base
+from backend.TicketsStore import db, session, Base
 from flask_jwt_extended import create_access_token
 from datetime import timedelta
 from passlib.hash import bcrypt

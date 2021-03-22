@@ -1,4 +1,4 @@
-from TicketsStore import client
+from backend.TicketsStore import client
 import pytest
 
 admin_auths = {

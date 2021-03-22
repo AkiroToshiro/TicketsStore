@@ -1,9 +1,9 @@
 from flask import Blueprint
 from flask_jwt_extended import jwt_required
-from TicketsStore.schemas import TicketSchema
-from flask_apispec import use_kwargs, marshal_with
-from TicketsStore.models import Ticket
-from TicketsStore import docs
+from backend.TicketsStore import TicketSchema
+from flask_apispec import marshal_with
+from backend.TicketsStore import Ticket
+from backend.TicketsStore import docs
 
 tickets = Blueprint('tickets', __name__)
 
