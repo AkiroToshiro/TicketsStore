@@ -16,39 +16,39 @@
         <img src="./ticket.png" width="30" height="30" class="d-inline-block align-top" alt="">
         Tickets store
       </a>
-      <div class="navbar-info">
-        <a href="../main-page/main.html" class="btn btn-outline-info"> Event list </a>
-        <a href="../yourTickets-page/youtTickets.html" class="btn btn-outline-info"> Your tickets </a>
-        <a href="../profile-page/profile.html" class="btn btn-outline-info"> Profile </a>
-        <a href="../login-page/login.html" class="btn btn-outline-info"> Log out </a>
-      </div>
+      <form id="head">
+        <div id="header"></div>
+      </form>
     </nav>
   </div>
   <div class="login">
   <span>
     Register
   </span>
-  <form>
+  <form id="register">
     <div class="login-form">
       <div class="email-form">
         <label>Email</label>
-        <input name="form-control" class="form-control" placeholder="Email" type="email">
+        <input id="email" name="form-control" class="form-control" placeholder="Email" type="email">
+        <label>Username</label>
+        <input id="username" name="form-control" class="form-control" placeholder="Username" type="Username">
       </div>
       <div class="password-form">
         <label>Password</label>
-        <input class="form-control" placeholder="******" type="password">
+        <input id="password" class="form-control" placeholder="******" type="password">
         <label>Confirm password</label>
-        <input class="form-control" placeholder="******" type="password">
+        <input id="passwordConfirm" class="form-control" placeholder="******" type="password">
       </div>
     </div>
-  </form>
-      <br>
+    <br>
     <div class="form-group">
       <button type="submit" class="btn btn-primary btn-block"> Register </button>
-  </div>
+    </div>
+  </form>
   <a href="../login-page/login.html">
     Already have an account?
   </a>
   </div>
 </body>
+<script src="register.js"></script>
 </html>
