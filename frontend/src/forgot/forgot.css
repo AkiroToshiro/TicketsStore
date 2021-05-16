@@ -1,0 +1,48 @@
+button {
+  align-items: center;
+}
+
+body {
+  font: 100% Helvetica, sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.header nav {
+  border-radius: 5px;
+  background-color: red;
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 800px;
+  margin: 10vh auto;
+}
+.input .email-form {
+  margin-top: 3%;
+}
+.input .form-control {
+  height: 7vh;
+  width: 50vw;
+  border: none;
+  outline: none;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+  text-indent: 10px;
+}
+.input button {
+  border: none;
+  outline: none;
+  height: 5vh;
+  width: 30vw;
+}
+.input button:hover {
+  cursor: pointer;
+  border: 1px solid grey;
+}
+
+/*# sourceMappingURL=forgot.css.map */

@@ -21,6 +21,7 @@ class Event(models.Model):
     capacity = models.IntegerField()
     frontimg = models.ImageField()
     afishaimg = models.ImageField()
+    price = models.IntegerField()
 
 
 class Ticket(models.Model):
