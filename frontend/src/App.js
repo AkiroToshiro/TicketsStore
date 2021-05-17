@@ -6,13 +6,11 @@ import Forgot from "./forgot/Forgot";
 import Main from "./main/Main";
 import Profile from "./profile/Profile";
 import Event from "./event/Event";
-import Header from "./header/Header";
 import Tickets from "./tickets/tickets";
 
 function App() {
   return (
       <div>
-      <Header/>
       <Router>
         <Switch>
             <Route path='/login'>

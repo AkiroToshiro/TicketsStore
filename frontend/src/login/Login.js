@@ -1,62 +1,58 @@
 import React, {Component} from 'react'
 import './login.css'
 import axios from "axios";
-
+import ticket from '../ticket.png'
 
 export default class Login extends Component{
 
-    handleSubmit = e => {
-        e.preventDefault();
-
-        const data = {
-            username: this.username,
-            password: this.password
-        }
-
-        axios.post('http://127.0.0.1:8000/user/login/', data).
-            then(res => {
-            let token = localStorage.setItem("token", JSON.stringify(res.data.access));
-            window.location.href = '/main';
-        })
-            .catch(err => {
-                console.log(err)
-            })
-    };
-
     render() {
         return (
-            <div className="login">
-        <span>
-            Login
-        </span>
-                <form onSubmit={this.handleSubmit}>
-                    <div className="login-form">
-                        <div className="email-form">
-                            <label>Username</label>
-                            <input name="form-control" className="form-control" placeholder="Username" type="username"
-                            onChange={e => this.username = e.target.value}/>
+            <div>
+                <div className="header">
+                    <nav className="navbar navbar-light bg-light">
+                        <a className="navbar-brand">
+                            <img src={ticket} width="30" height="30" className="d-inline-block align-top" alt="" />
+                            Tickets store
+                        </a>
+                        <div className="navbar-info">
+                            <a href="/main" className="btn btn-outline-info"> Event list </a>
+                            <a href="/tickets" className="btn btn-outline-info"> Your
+                                tickets </a>
+                            <a href="/profile" className="btn btn-outline-info"> Profile </a>
+                            <a href="/login" className="btn btn-outline-info"> Log out </a>
                         </div>
-                        <div className="password-form">
-                            <label>Password</label>
-                            <input className="form-control" placeholder="******" type="password"
-                            onChange={e => this.password = e.target.value}/>
-                        </div>
+                    </nav>
+                </div>
+        <div className="login">
+  <span>
+    Login
+  </span>
+            <form>
+                <div className="login-form">
+                    <div className="email-form">
+                        <label>Email</label>
+                        <input name="form-control" className="form-control" placeholder="Email" type="email" />
                     </div>
-                    <div className="checkbox">
-                        <label> <input type="checkbox"/> Save password </label>
+                    <div className="password-form">
+                        <label>Password</label>
+                        <input className="form-control" placeholder="******" type="password" />
                     </div>
-                    <br/>
-                    <div className="form-group">
-                        <button type="submit" className="btn btn-primary btn-block"> Login</button>
-                    </div>
-                </form>
+                </div>
+                <div className="checkbox">
+                    <label> <input type="checkbox" /> Save password </label>
+                </div>
+            </form>
+            <br/>
+                <div className="form-group">
+                    <button type="submit" className="btn btn-primary btn-block"> Login</button>
+                </div>
                 <a href="/register">
-                        Sign up now
-                    </a>
-                    <br/>
-                    <a href="/forgot" className="txt1">
-                        Forgot?
-                    </a>
+                    Sign up now
+                </a>
+                <a href="/forgot" className="txt1">
+                    Forgot?
+                </a>
+        </div>
             </div>
         )
     }
