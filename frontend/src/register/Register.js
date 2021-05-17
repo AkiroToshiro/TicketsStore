@@ -10,7 +10,7 @@ export default class Register extends Component {
 
         const data = {
             username: this.username,
-            password: this.password,
+            password: this.password1,
             email: this.email
         }
         if (this.password1 != this.password2) {
@@ -40,12 +40,12 @@ export default class Register extends Component {
                         <div className="email-form">
                             <label>Email</label>
                             <input name="form-control" className="form-control" placeholder="Email" type="email"
-                                   onChange={e => this.username = e.target.value}/>
+                                   onChange={e => this.email = e.target.value}/>
                         </div>
                         <label>Username</label>
                         <div className="username-form">
                             <input name="form-control" className="form-control" placeholder="Username" type="username"
-                                   onChange={e => this.email = e.target.value}/>
+                                   onChange={e => this.username = e.target.value}/>
                         </div>
                         <div className="password-form">
                             <label>Password</label>

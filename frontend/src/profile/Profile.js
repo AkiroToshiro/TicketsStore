@@ -67,6 +67,7 @@ export default class Profile extends Component {
 
     changeUser = e => {
         e.preventDefault();
+        console.log(this.username)
         let token = "JWT " + JSON.parse(localStorage.getItem("token"))
         fetch('http://127.0.0.1:8000/user/userUpdate/', {
             method: "PUT",
@@ -75,17 +76,14 @@ export default class Profile extends Component {
                 Authorization: token
             },
             body: JSON.stringify({
-                newFirstName: this.first_name,
-                newSecondName: this.last_name,
-                newEmail: this.email,
-                newUsername: this.username
+                first_name: this.first_name,
+                last_name: this.last_name,
+                email: this.email,
+                username: this.username
             })
         })
             .then(response => {
                 return response.json();
-            })
-            .then(data => {
-                alert(data.statusMsg);
             })
         }
 

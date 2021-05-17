@@ -51,19 +51,7 @@ class UserUpdateViewSet(viewsets.ViewSet):
     permission_classes = [permissions.IsAuthenticated, ]
 
     def update(self, request):
-        user = request.user
-        newFirstName = str(request.data.get('newFirstName'))
-        newSecondName = str(request.data.get('newSecondName'))
-        newEmail = str(request.data.get('newEmail'))
-        newUsername = str(request.data.get('newUsername'))
-        print(newFirstName)
-        if newFirstName != '':
-            user.first_name = newFirstName
-        if newSecondName != '':
-            user.secondName = newSecondName
-        if newEmail != '':
-            user.email = newEmail
-        if newUsername != '':
-            user.username = newUsername
-        user.save()
-        return Response({"statusMsg": "Password changed"}, status=200)
+        serializer = UserSerializer(request.user, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)

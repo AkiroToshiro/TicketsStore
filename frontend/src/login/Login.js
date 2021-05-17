@@ -15,7 +15,7 @@ export default class Login extends Component{
 
         axios.post('http://127.0.0.1:8000/user/login/', data).
             then(res => {
-            let token = localStorage.setItem("token", JSON.stringify(res.data.access));
+            localStorage.setItem("token", JSON.stringify(res.data.access));
             window.location.href = '/main';
         })
             .catch(err => {
