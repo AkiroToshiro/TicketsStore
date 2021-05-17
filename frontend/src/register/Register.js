@@ -62,8 +62,7 @@ export default class Register extends Component {
                 </div>
                 </form>
                 <a href="/login">
-                    Already have an account?
-                </a>
+                    Already have an account?</a>
             </div>
         )
     }
